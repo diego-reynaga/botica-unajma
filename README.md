@@ -241,7 +241,12 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 
 **Diego Reynaga**
 - GitHub: [@diego-reynaga](https://github.com/diego-reynaga)
-- Proyecto: [minimarket-la-favorita](https://github.com/diego-reynaga/botica-unajma)
+- Proyecto: [botica-unajma](https://github.com/diego-reynaga/botica-unajma)
+
+## 🏥 Institución
+
+**Universidad Nacional José María Arguedas (UNAJMA)**
+- Escuela Profesional de Ingeniería de Sistemas
 
 ## 📞 Soporte
 
