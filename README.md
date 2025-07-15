@@ -1,16 +1,34 @@
-# 🏥 Botica UNAJMA - Sistema de Gestión de Pedidos
+# 👗 Minimarket La Favorita - Sistema de Ventas
 
-Un sistema web desarrollado en Flask para la gestión de pedidos de una botica/farmacia, diseñado para la Universidad Nacional José María Arguedas (UNAJMA).
+![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
+![Flask](https://img.shields.io/badge/flask-v3.1.1-green.svg)
+![SQL Server](https://img.shields.io/badge/sql%20server-express-red.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-## 📋 Descripción
+## 📖 Descripción
 
-Este proyecto es una aplicación web que permite:
-- 🔐 Sistema de autenticación (login/logout)
-- 📝 Registro de pedidos de productos farmacéuticos
-- 👀 Visualización de todos los pedidos
-- ✏️ Edición de pedidos existentes
-- 🗑️ Eliminación de pedidos
-- 📊 Interfaz intuitiva y responsive
+**Minimarket La Favorita** es un sistema de gestión de ventas desarrollado en Python Flask para tiendas de ropa. Permite registrar ventas, gestionar inventario básico y generar reportes de ventas de manera sencilla e intuitiva.
+
+## ✨ Características
+
+- 🛍️ **Registro de Ventas**: Registra ventas con cliente, prenda, talla, cantidad y precio
+- 📊 **Dashboard de Ventas**: Visualiza todas las ventas registradas
+- ✏️ **Edición de Ventas**: Modifica ventas existentes
+- 🗑️ **Eliminación de Ventas**: Elimina ventas con confirmación
+- � **Estadísticas Básicas**: Muestra total de ventas e ingresos
+- 🔐 **Sistema de Login**: Acceso seguro con usuario y contraseña
+- � **Diseño Responsive**: Funciona en desktop y móvil
+
+## 📋 Catálogo de Productos
+
+El sistema incluye las siguientes prendas:
+- 👔 Camisas
+- 👖 Pantalones
+- � Vestidos y Faldas
+- 👚 Blusas y Camisetas
+- 🧥 Chaquetas
+- 👠 Zapatos y Zapatillas
+- 👜 Carteras y Accesorios
 
 ## 🛠️ Tecnologías Utilizadas
 
@@ -23,7 +41,7 @@ Este proyecto es una aplicación web que permite:
 ## 📁 Estructura del Proyecto
 
 ```
-BOTICA/
+minimarket-la-favorita/
 ├── app.py                 # Aplicación principal Flask
 ├── setup_database.sql     # Script para crear la base de datos
 ├── README.md             # Documentación del proyecto
@@ -32,10 +50,7 @@ BOTICA/
 │   └── login.html        # Página de login
 └── static/              # Archivos estáticos
     └── img/             # Imágenes del proyecto
-        ├── FondodeBotica.jpg
-        ├── LogoBotica.png
-        ├── LOGOEPIS.png
-        └── LogoUnajma.png
+        └── logo-minimarket.svg
 ```
 
 ## 🚀 Instalación y Configuración
@@ -83,7 +98,7 @@ pip install -r requirements.txt
    conn = pyodbc.connect(
        'DRIVER={ODBC Driver 17 for SQL Server};'
        'SERVER=TU_SERVIDOR\\SQLEXPRESS;'  # Cambia por tu servidor
-       'DATABASE=BoticaVentas;'
+       'DATABASE=MinimartLaFavorita;'
        'Trusted_Connection=yes;'
    )
    ```
@@ -112,16 +127,17 @@ La aplicación estará disponible en: **http://127.0.0.1:5000**
 
 ## 🗄️ Estructura de la Base de Datos
 
-### Tabla: `Pedidos`
+### Tabla: `Ventas`
 
 | Campo | Tipo | Descripción |
 |-------|------|-------------|
 | `id` | INT IDENTITY | Clave primaria (auto-incremento) |
-| `nombre_cliente` | NVARCHAR(100) | Nombre del cliente |
-| `producto` | NVARCHAR(100) | Nombre del producto |
-| `cantidad` | INT | Cantidad del producto |
+| `cliente` | NVARCHAR(100) | Nombre del cliente |
+| `prenda` | NVARCHAR(50) | Tipo de prenda |
+| `talla` | NVARCHAR(10) | Talla de la prenda |
+| `cantidad` | INT | Cantidad vendida |
 | `precio` | DECIMAL(10,2) | Precio unitario |
-| `fecha` | DATETIME | Fecha de registro (automática) |
+| `fecha` | DATETIME | Fecha de venta (automática) |
 
 ## 🎯 Funcionalidades
 
@@ -130,16 +146,17 @@ La aplicación estará disponible en: **http://127.0.0.1:5000**
 - Redirección automática si no está autenticado
 - Logout con limpieza de sesión
 
-### 2. **Gestión de Pedidos**
-- ✅ **Crear:** Formulario para nuevos pedidos
-- 📖 **Leer:** Lista completa de pedidos
-- ✏️ **Actualizar:** Editar pedidos existentes
-- 🗑️ **Eliminar:** Borrar pedidos
+### 2. **Gestión de Ventas**
+- ✅ **Crear:** Formulario para nuevas ventas
+- 📖 **Leer:** Lista completa de ventas
+- ✏️ **Actualizar:** Editar ventas existentes
+- 🗑️ **Eliminar:** Borrar ventas
 
 ### 3. **Interfaz de Usuario**
 - Diseño responsive
 - Mensajes de confirmación
 - Interfaz intuitiva
+- Estadísticas de ventas
 
 ## 🔧 Solución de Problemas
 
@@ -180,9 +197,10 @@ pip install flask pyodbc
 - Validación de credenciales
 
 ### Dashboard Principal
-- Formulario de registro de pedidos
-- Lista de pedidos con opciones de edición/eliminación
+- Formulario de registro de ventas
+- Lista de ventas con opciones de edición/eliminación
 - Diseño responsive
+- Estadísticas de ventas
 
 ## 🚀 Despliegue
 
@@ -200,7 +218,8 @@ Para producción, considera usar:
 ## 📝 Datos de Ejemplo
 
 El script `setup_database.sql` incluye datos de ejemplo:
-- Juan Pérez - Paracetamol (2 unidades - S/ 5.50)
+- María González - Vestido M (1 unidad - S/ 45.50)
+- Carlos Ruiz - Camisa L (2 unidades - S/ 35.00)
 - María García - Ibuprofeno (1 unidad - S/ 12.00)
 - Carlos López - Vitamina C (3 unidades - S/ 8.75)
 
@@ -222,12 +241,7 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 
 **Diego Reynaga**
 - GitHub: [@diego-reynaga](https://github.com/diego-reynaga)
-- Proyecto: [botica-unajma](https://github.com/diego-reynaga/botica-unajma)
-
-## 🏥 Institución
-
-**Universidad Nacional José María Arguedas (UNAJMA)**
-- Escuela Profesional de Ingeniería de Sistemas
+- Proyecto: [minimarket-la-favorita](https://github.com/diego-reynaga/botica-unajma)
 
 ## 📞 Soporte
 
@@ -237,5 +251,7 @@ Si tienes problemas o preguntas:
 3. Contacta al autor
 
 ---
+
+⭐ **¡Si te gusta este proyecto, dale una estrella en GitHub!**
 
 ⭐ **¡Si te gusta este proyecto, dale una estrella!** ⭐

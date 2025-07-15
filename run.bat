@@ -1,6 +1,6 @@
 @echo off
 echo ===============================================
-echo    BOTICA UNAJMA - INICIANDO APLICACION
+echo    MINIMARKET LA FAVORITA - INICIANDO SISTEMA
 echo ===============================================
 echo.
 
@@ -16,10 +16,10 @@ if %errorlevel% neq 0 (
 echo [OK] Dependencias encontradas
 echo.
 
-echo Iniciando aplicacion Flask...
+echo Iniciando sistema de ventas...
 echo.
 echo ===============================================
-echo    APLICACION INICIADA
+echo    MINIMARKET LA FAVORITA - SISTEMA ACTIVO
 echo ===============================================
 echo.
 echo URL: http://127.0.0.1:5000

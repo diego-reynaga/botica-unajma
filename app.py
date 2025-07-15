@@ -8,7 +8,7 @@ app.secret_key = 'tu_clave_secreta_segura'
 conn = pyodbc.connect(
     'DRIVER={ODBC Driver 17 for SQL Server};'
     'SERVER=DESKTOP-6RA3OO5\\SQLEXPRESS;'
-    'DATABASE=BoticaVentas;'
+    'DATABASE=MinimartLaFavorita;'
     'Trusted_Connection=yes;'
 )
 
@@ -41,32 +41,34 @@ def index():
 
     mensaje = ""
     if request.method == 'POST':
-        nombre = request.form['nombre']
-        producto = request.form['producto']
+        cliente = request.form['cliente']
+        prenda = request.form['prenda']
+        talla = request.form['talla']
         cantidad = int(request.form['cantidad'])
         precio = float(request.form['precio'])
 
         cursor = conn.cursor()
         cursor.execute("""
-            INSERT INTO Pedidos (nombre_cliente, producto, cantidad, precio)
-            VALUES (?, ?, ?, ?)
-        """, (nombre, producto, cantidad, precio))
+            INSERT INTO Ventas (cliente, prenda, talla, cantidad, precio)
+            VALUES (?, ?, ?, ?, ?)
+        """, (cliente, prenda, talla, cantidad, precio))
         conn.commit()
-        mensaje = "✅ Pedido registrado con éxito"
+        mensaje = "✅ Venta registrada con éxito"
 
     cursor = conn.cursor()
-    cursor.execute("SELECT id, nombre_cliente, producto, cantidad, precio, fecha FROM Pedidos")
-    pedidos = [
+    cursor.execute("SELECT id, cliente, prenda, talla, cantidad, precio, fecha FROM Ventas")
+    ventas = [
         {
             "id": row[0],
-            "nombre_cliente": row[1],
-            "producto": row[2],
-            "cantidad": row[3],
-            "precio": row[4],
-            "fecha": row[5]
+            "cliente": row[1],
+            "prenda": row[2],
+            "talla": row[3],
+            "cantidad": row[4],
+            "precio": row[5],
+            "fecha": row[6]
         } for row in cursor.fetchall()
     ]
-    return render_template('Formulario.html', pedidos=pedidos, mensaje=mensaje)
+    return render_template('Formulario.html', ventas=ventas, mensaje=mensaje)
 
 # ---------------- ACTUALIZAR ----------------
 @app.route('/actualizar/<int:id>', methods=['POST'])
@@ -74,17 +76,18 @@ def actualizar(id):
     if 'usuario' not in session:
         return redirect(url_for('login'))
 
-    nombre = request.form['nombre_cliente']
-    producto = request.form['producto']
+    cliente = request.form['cliente']
+    prenda = request.form['prenda']
+    talla = request.form['talla']
     cantidad = request.form['cantidad']
     precio = request.form['precio']
 
     cursor = conn.cursor()
     cursor.execute("""
-        UPDATE Pedidos
-        SET nombre_cliente = ?, producto = ?, cantidad = ?, precio = ?
+        UPDATE Ventas
+        SET cliente = ?, prenda = ?, talla = ?, cantidad = ?, precio = ?
         WHERE id = ?
-    """, (nombre, producto, cantidad, precio, id))
+    """, (cliente, prenda, talla, cantidad, precio, id))
     conn.commit()
     return redirect(url_for('index'))
 
@@ -95,7 +98,7 @@ def eliminar(id):
         return redirect(url_for('login'))
 
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM Pedidos WHERE id = ?", (id,))
+    cursor.execute("DELETE FROM Ventas WHERE id = ?", (id,))
     conn.commit()
     return redirect(url_for('index'))
 

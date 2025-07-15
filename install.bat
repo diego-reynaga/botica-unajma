@@ -1,6 +1,6 @@
 @echo off
 echo ===============================================
-echo    BOTICA UNAJMA - SCRIPT DE INSTALACION
+echo    MINIMARKET LA FAVORITA - INSTALACION
 echo ===============================================
 echo.
 

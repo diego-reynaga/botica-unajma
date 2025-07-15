@@ -12,7 +12,7 @@ class DevelopmentConfig(Config):
     DATABASE_CONFIG = {
         'DRIVER': '{ODBC Driver 17 for SQL Server}',
         'SERVER': 'localhost\\SQLEXPRESS',  # Cambiar por tu servidor
-        'DATABASE': 'BoticaVentas',
+        'DATABASE': 'MinimartLaFavorita',
         'TRUSTED_CONNECTION': 'yes'
     }
 
