@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrar Pedido - UNAJMA</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background-image: url("{{ url_for('static', filename='img/FondodeBotica.jpg') }}");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #fff;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .form-container {
+      max-width: 800px;
+      margin: auto;
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      padding: 30px;
+      color: #333;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #004080;
+    }
+
+    .tab-menu {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .tab-menu button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #004080;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .tab-menu button:hover {
+      background-color: #0066cc;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+      color: #004080;
+    }
+
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      background: #007BFF;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background: #0056b3;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      color: black;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #004080;
+      color: white;
+    }
+
+    .logo-botica-fixed {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      height: 120px;
+      opacity: 0.85;
+      z-index: 999;
+    }
+
+    @media screen and (max-width: 600px) {
+      .logo-botica-fixed {
+        height: 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <div class="form-container">
+      <h2>BOTICA UNAJMA</h2>
+
+      <!-- Menú de pestañas -->
+      <div class="tab-menu">
+        <button onclick="mostrarSeccion('registro')">📝 Registrar Pedido</button>
+        <button onclick="mostrarSeccion('tabla')">📋 Ver Pedidos</button>
+      </div>
+
+      <!-- Sección: Formulario de Registro -->
+      <div id="seccion-registro">
+        <form method="post">
+          <label for="nombre">👤 Nombre del Cliente:</label>
+          <input type="text" id="nombre" name="nombre" required>
+
+          <label for="producto">📦 Producto:</label>
+          <input type="text" id="producto" name="producto" required>
+
+          <label for="cantidad">🔢 Cantidad:</label>
+          <input type="number" id="cantidad" name="cantidad" required>
+
+          <label for="precio">💰 Precio (S/):</label>
+          <input type="number" step="0.01" id="precio" name="precio" required>
+
+          <input type="submit" value="Registrar Pedido ✅">
+        </form>
+
+        {% if mensaje %}
+          <p style="color: green; text-align: center; font-weight: bold;">{{ mensaje }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Sección: Tabla de Pedidos -->
+      <div id="seccion-tabla" style="display: none;">
+        <h3 style="text-align: center; color: #004080;">📋 Pedidos Registrados</h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Cliente</th>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Precio</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+  {% for pedido in pedidos %}
+  <tr>
+    <form method="post" action="/actualizar/{{ pedido.id }}">
+      <td>{{ pedido.id }}</td>
+      <td><input type="text" name="nombre_cliente" value="{{ pedido.nombre_cliente }}" style="width: 100%; border: none;"></td>
+      <td><input type="text" name="producto" value="{{ pedido.producto }}" style="width: 100%; border: none;"></td>
+      <td><input type="number" name="cantidad" value="{{ pedido.cantidad }}" style="width: 100%; border: none;"></td>
+      <td><input type="number" name="precio" value="{{ pedido.precio }}" step="0.01" style="width: 100%; border: none;"></td>
+      <td>{{ pedido.fecha }}</td>
+      <td>
+        <button type="submit" style="background: green; color: white; border: none; border-radius: 5px; padding: 5px;">💾 Guardar</button>
+      </td>
+    </form>
+    <td>
+      <form method="post" action="/eliminar/{{ pedido.id }}" onsubmit="return confirm('¿Estás seguro de eliminar este pedido?');">
+        <button type="submit" style="background: red; color: white; border: none; border-radius: 5px; padding: 5px;">🗑 Eliminar</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</tbody>
+
+
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <img src="{{ url_for('static', filename='img/LogoBotica.png') }}" class="logo-botica-fixed" alt="Botica">
+
+  <!-- Script para mostrar/ocultar secciones -->
+  <script>
+    function mostrarSeccion(seccion) {
+      const registro = document.getElementById('seccion-registro');
+      const tabla = document.getElementById('seccion-tabla');
+
+      if (seccion === 'registro') {
+        registro.style.display = 'block';
+        tabla.style.display = 'none';
+      } else {
+        registro.style.display = 'none';
+        tabla.style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>
