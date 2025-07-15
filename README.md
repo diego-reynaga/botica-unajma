@@ -218,12 +218,6 @@ El script `setup_database.sql` incluye datos de ejemplo:
 
 Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
 
-## 👨‍💻 Autor
-
-**Diego Reynaga**
-- GitHub: [@diego-reynaga](https://github.com/diego-reynaga)
-- Proyecto: [botica-unajma](https://github.com/diego-reynaga/botica-unajma)
-
 ## 🏥 Institución
 
 **Universidad Nacional José María Arguedas (UNAJMA)**
